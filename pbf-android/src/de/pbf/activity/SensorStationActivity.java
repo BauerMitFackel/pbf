@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import de.pbf.R;
+import de.pbf.controller.SensorHolder;
 import de.pbf.controller.SensorStationsHolder;
 import de.pbf.controller.SensorsAdapter;
 import de.pbf.model.SensorStation;
+import de.pbf.model.sensor.Sensor;
 
 public class SensorStationActivity extends Activity {
 
@@ -33,6 +37,8 @@ public class SensorStationActivity extends Activity {
 
         ListView sensorView = (ListView) findViewById(R.id.sensor_station_activity_sensors_list_view);
         sensorView.setAdapter(adapter);
+        
+        sensorView.setOnItemClickListener(makeOnItemClickListener());
     }
 
     @Override
@@ -56,6 +62,30 @@ public class SensorStationActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private AdapterView.OnItemClickListener makeOnItemClickListener() {
+        
+        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                
+                Sensor sensor = sensorStation.sensors().get(position);
+                
+                Intent intent = new Intent(getApplicationContext(), SensorGraphActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("SENSOR_STATION_URL", sensorStation.getUrl());
+                bundle.putString("SENSOR_ID", sensor.id());
+                
+                intent.putExtras(bundle);
+                
+                startActivity(intent);
+                finish();
+            }
+        };
+        
+        return listener;
     }
 
 }
