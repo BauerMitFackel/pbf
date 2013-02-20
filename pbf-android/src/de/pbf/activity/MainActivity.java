@@ -20,6 +20,7 @@ import java.util.List;
 
 import de.pbf.R;
 import de.pbf.controller.SensorStationsAdapter;
+import de.pbf.controller.SensorStationsHolder;
 import de.pbf.io.AsyncWebserviceRequest;
 import de.pbf.io.SensorDeserializer;
 import de.pbf.mock.Mock;
@@ -36,10 +37,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        
+        setupData();
+        
+        
         setContentView(R.layout.main_activity);
 
-        List<SensorStation> sensorStations = Mock.makeSensorStations();
-        SensorStationsAdapter adapter = new SensorStationsAdapter(this, R.layout.sensor_station_row, sensorStations);
+        SensorStationsAdapter adapter = new SensorStationsAdapter(this, R.layout.sensor_station_row);
 
         ListView sensorStationsView = (ListView) findViewById(R.id.main_activity_sensor_stations_list_view);
         sensorStationsView.setAdapter(adapter);
@@ -65,6 +69,16 @@ public class MainActivity extends Activity {
         };
         
         return listener;
+    }
+    
+    
+    private void setupData() {
+        
+        List<SensorStation> sensorStations = Mock.makeSensorStations();
+        
+        for (SensorStation sensorStation : sensorStations) {
+            SensorStationsHolder.INSTANCE.add(sensorStation);
+        }
     }
     
 

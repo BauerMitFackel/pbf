@@ -31,23 +31,16 @@ public class SensorStationsAdapter extends ArrayAdapter<SensorStation> {
     private int resourceId;
 
     /**
-     * List of sensor stations.
-     */
-    private List<SensorStation> sensorStations;
-
-    /**
      * Constructor.
      * @param context The current context.
      * @param resourceId The resource ID for a layout file to use when instantiating views.
-     * @param sensorStations The sensor stations to represent in the ListView.
      */
-    public SensorStationsAdapter(Context context, int resourceId, List<SensorStation> sensorStations) {
+    public SensorStationsAdapter(Context context, int resourceId) {
 
-        super(context, resourceId, sensorStations);
+        super(context, resourceId, SensorStationsHolder.INSTANCE.sensorStations());
 
         this.context = context;
         this.resourceId = resourceId;
-        this.sensorStations = sensorStations;
     }
 
     @Override
@@ -63,17 +56,16 @@ public class SensorStationsAdapter extends ArrayAdapter<SensorStation> {
             holder = new ViewHolder();
             holder.nameView = (TextView) row.findViewById(R.id.sensor_station_row_name_view);
             holder.colorIndicatorView = row.findViewById(R.id.sensor_station_row_color_indicator_view);
-            
+
             row.setTag(holder);
-            
+
         } else {
             holder = (ViewHolder) row.getTag();
         }
-        
-        SensorStation sensorStation = sensorStations.get(position);
+
+        SensorStation sensorStation = SensorStationsHolder.INSTANCE.sensorStations().get(position);
         holder.nameView.setText(sensorStation.getName());
-        
-        
+
         return row;
     }
 
@@ -87,7 +79,7 @@ public class SensorStationsAdapter extends ArrayAdapter<SensorStation> {
          * TextView which should display the name of a sensor station.
          */
         private TextView nameView;
-       
+
         /**
          * View which should display the overall condition.
          */
