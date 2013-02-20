@@ -1,8 +1,9 @@
-
 package de.pbf.model.sensor;
 
 /**
- * Abstract {@link Sensor} implementation which could be used by concrete Sensor implementations. Provides a {@link Builder} for creating instances.
+ * Abstract {@link Sensor} implementation which could be used by concrete Sensor
+ * implementations. Provides a {@link Builder} for creating instances.
+ * 
  * @author Ulrich Raab
  */
 public abstract class GenericSensor implements Sensor {
@@ -24,7 +25,9 @@ public abstract class GenericSensor implements Sensor {
 
     /**
      * Constructor.
-     * @param builder The {@link Builder} instance to use for construction.
+     * 
+     * @param builder
+     *            The {@link Builder} instance to use for construction.
      */
     public GenericSensor(Builder builder) {
 
@@ -52,9 +55,49 @@ public abstract class GenericSensor implements Sensor {
     }
 
     // BUILDER
-    
+
+    @Override
+    public int hashCode() {
+
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        GenericSensor other = (GenericSensor) obj;
+
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Builder class for {@link GenericSensor} objects.
+     * 
      * @author Ulrich Raab
      */
     public abstract static class Builder implements Sensor.Builder {
@@ -76,7 +119,9 @@ public abstract class GenericSensor implements Sensor {
 
         /**
          * Setter for {@link #id}.
-         * @param id The id to set
+         * 
+         * @param id
+         *            The id to set
          */
         public void id(String id) {
 
@@ -85,7 +130,9 @@ public abstract class GenericSensor implements Sensor {
 
         /**
          * Setter for {@link #value}.
-         * @param value The value to set
+         * 
+         * @param value
+         *            The value to set
          */
         protected void value(float value) {
 
@@ -94,15 +141,19 @@ public abstract class GenericSensor implements Sensor {
 
         /**
          * Setter for {@link #unit}.
-         * @param unit The unit to set
+         * 
+         * @param unit
+         *            The unit to set
          */
         public void unit(Unit unit) {
 
             this.unit = unit;
         }
-        
+
         /**
-         * Subclasses must implement this method to create instances of concrete sensors.
+         * Subclasses must implement this method to create instances of concrete
+         * sensors.
+         * 
          * @return A sensor instance
          */
         public abstract Sensor build();

@@ -29,7 +29,7 @@ public class SensorStationActivity extends Activity {
         String url = bundle.getString("SENSOR_STATION_URL");
         this.sensorStation = SensorStationsHolder.INSTANCE.get(url);
 
-        SensorsAdapter adapter = new SensorsAdapter(this, R.layout.sensor_row, sensorStation.getSensors());
+        SensorsAdapter adapter = new SensorsAdapter(this, R.layout.sensor_row, sensorStation.sensors());
 
         ListView sensorView = (ListView) findViewById(R.id.sensor_station_activity_sensors_list_view);
         sensorView.setAdapter(adapter);
@@ -56,8 +56,6 @@ public class SensorStationActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-        // TODO Auto-generated method stub
-
     }
 
 }

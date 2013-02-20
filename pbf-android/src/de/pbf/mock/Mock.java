@@ -2,9 +2,9 @@
 package de.pbf.mock;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-import de.pbf.model.Plant;
 import de.pbf.model.SensorStation;
 import de.pbf.model.sensor.Sensor;
 import de.pbf.model.sensor.impl.LightSensor;
@@ -16,11 +16,6 @@ import de.pbf.model.sensor.impl.TemperatureSensor;
  * @author Ulrich Raab
  */
 public final class Mock {
-
-    private static final float TEMPERATURE_SENSOR_RAW_VALUE = 20.0F;
-    private static final float LIGHT_SENSOR_RAW_VALUE = 352.3F;
-    private static final float MOISTURE_SENSOR_RAW_VALUE_1 = 754.0F;
-    private static final float MOISTURE_SENSOR_RAW_VALUE_2 = 1.0F;
 
     /**
      * Mock class.
@@ -37,13 +32,28 @@ public final class Mock {
 
         SensorStation sensorStation = new SensorStation();
         sensorStation.setUrl("http://192.168.0.1");
-        sensorStation.setName("Wohnzimmer");
+        sensorStation.setName("Arduino");
         
-        sensorStation.setSensors(makeSensors());
-                        
+        GregorianCalendar calendar = new GregorianCalendar();
+        
+        calendar.set(2013, 02, 20, 15, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 15, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 15, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 15, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 16, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
         List<SensorStation> stations = new ArrayList<SensorStation>();
         stations.add(sensorStation);
-
+        
         return stations;
     }
     
@@ -54,7 +64,7 @@ public final class Mock {
         
         MoistureSensor.Builder msBuilder = new MoistureSensor.Builder();
         msBuilder.id("S1");
-        msBuilder.rawValue(MOISTURE_SENSOR_RAW_VALUE_1);
+        msBuilder.rawValue((float) (Math.random() * 1024));
         
         MoistureSensor sensor1 = msBuilder.build();
         
@@ -62,7 +72,7 @@ public final class Mock {
         
         msBuilder = new MoistureSensor.Builder();
         msBuilder.id("S2");
-        msBuilder.rawValue(MOISTURE_SENSOR_RAW_VALUE_2);
+        msBuilder.rawValue((float) (Math.random() * 1024));
 
         MoistureSensor sensor2 = msBuilder.build();
         
@@ -70,7 +80,7 @@ public final class Mock {
         
         LightSensor.Builder lsBuilder = new LightSensor.Builder();
         lsBuilder.id("S3");
-        lsBuilder.rawValue(LIGHT_SENSOR_RAW_VALUE);
+        lsBuilder.rawValue((float) (Math.random() * 1024));
         
         LightSensor sensor3 = lsBuilder.build();
         
@@ -78,7 +88,7 @@ public final class Mock {
         
         TemperatureSensor.Builder tsBuilder = new TemperatureSensor.Builder();
         tsBuilder.id("S4");
-        tsBuilder.rawValue(TEMPERATURE_SENSOR_RAW_VALUE);
+        tsBuilder.rawValue((float) (Math.random() * 30));
         
         TemperatureSensor sensor4 = tsBuilder.build();
         
@@ -91,26 +101,5 @@ public final class Mock {
         sensors.add(sensor4);
         
         return sensors;
-    }
-    
-
-    /**
-     * Make method for plants.
-     * @param pSensorStation the sensor station
-     * @return the plant list
-     */
-    private static List<Plant> makePlants(SensorStation pSensorStation) {
-
-        Plant plant1 = new Plant();
-        plant1.setSensorStation(pSensorStation);
-
-        Plant plant2 = new Plant();
-        plant2.setSensorStation(pSensorStation);
-
-        List<Plant> plants = new ArrayList<Plant>();
-        plants.add(plant1);
-        plants.add(plant2);
-
-        return plants;
     }
 }

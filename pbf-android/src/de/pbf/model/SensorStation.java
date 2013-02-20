@@ -1,7 +1,13 @@
 
 package de.pbf.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import de.pbf.model.sensor.Sensor;
 
@@ -21,10 +27,9 @@ public class SensorStation {
      */
     private String name;
 
-    /**
-     * List of {@link Sensor} objects.
-     */
-    private List<Sensor> sensors;
+    
+    private Map<Date, List<Sensor>> sensorsOverTime = new HashMap<Date, List<Sensor>>();
+    
 
     /**
      * Getter for {@link #url}.
@@ -62,21 +67,19 @@ public class SensorStation {
         this.name = name;
     }
 
-    /**
-     * Getter for {@link #sensors}.
-     * @return The sensors as {@link List}
-     */
-    public List<Sensor> getSensors() {
-
-        return sensors;
+    
+    public List<Sensor> sensors() {
+        
+        Set<Date> keySet = sensorsOverTime.keySet();
+        List<Date> keys = new ArrayList<Date>(keySet);
+        Collections.sort(keys);
+        
+        return sensorsOverTime.get(keys.size() - 1);
     }
-
-    /**
-     * Setter for {@link #sensors}.
-     * @param sensors The sensors to set
-     */
-    public void setSensors(List<Sensor> sensors) {
-
-        this.sensors = sensors;
+    
+        
+    public Map<Date, List<Sensor>> sensorsOverTime() {
+        
+        return sensorsOverTime;
     }
 }
