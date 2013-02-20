@@ -61,10 +61,17 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                
+                SensorStation sensorStation = SensorStationsHolder.INSTANCE.sensorStations().get(position);
                 
-                Toast.makeText(getApplicationContext(), "click on " + position, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), SensorStationActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("SENSOR_STATION_URL", sensorStation.getUrl());
+                
+                intent.putExtras(bundle);
+                
+                startActivity(intent);
+                finish();
             }
         };
         

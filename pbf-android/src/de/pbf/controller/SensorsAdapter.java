@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import de.pbf.R;
@@ -72,8 +73,12 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
 
         Sensor sensor = sensors.get(position);
         holder.nameView.setText(sensor.id());
-
-        String valueText = sensor.value() + " " + sensor.unit().label();
+        
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(1);
+        numberFormat.setMaximumFractionDigits(1);
+        
+        String valueText = numberFormat.format(sensor.value()) + " " + sensor.unit().label();
         holder.valueView.setText(valueText);
 
         return row;
