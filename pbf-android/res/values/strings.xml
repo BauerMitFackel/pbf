@@ -4,5 +4,10 @@
     <string name="app_name">Plants Best Friend</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+    
+	<string name="unit_label_degree_celsius">°C</string>
+	<string name="unit_label_moisture_in_percent">%</string>
+	<string name="unit_label_brightness_in_percent">%</string>
+	<string name="unit_label_unknown"></string>
+	
 </resources>
