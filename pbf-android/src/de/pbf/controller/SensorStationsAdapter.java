@@ -1,0 +1,96 @@
+
+package de.pbf.controller;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+import de.pbf.R;
+import de.pbf.model.SensorStation;
+
+/**
+ * {@link ListView} adapter for sensor stations.
+ * @author Ulrich Raab
+ */
+public class SensorStationsAdapter extends ArrayAdapter<SensorStation> {
+
+    /**
+     * The current context.
+     */
+    private Context context;
+
+    /**
+     * Resource ID for a layout file to use as row layout.
+     */
+    private int resourceId;
+
+    /**
+     * List of sensor stations.
+     */
+    private List<SensorStation> sensorStations;
+
+    /**
+     * Constructor.
+     * @param context The current context.
+     * @param resourceId The resource ID for a layout file to use when instantiating views.
+     * @param sensorStations The sensor stations to represent in the ListView.
+     */
+    public SensorStationsAdapter(Context context, int resourceId, List<SensorStation> sensorStations) {
+
+        super(context, resourceId, sensorStations);
+
+        this.context = context;
+        this.resourceId = resourceId;
+        this.sensorStations = sensorStations;
+    }
+
+    @Override
+    public View getView(int position, View row, ViewGroup parent) {
+
+        ViewHolder holder = null;
+
+        if (row == null) {
+
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            row = inflater.inflate(resourceId, parent, false);
+
+            holder = new ViewHolder();
+            holder.nameView = (TextView) row.findViewById(R.id.sensor_station_row_name_view);
+            holder.colorIndicatorView = row.findViewById(R.id.sensor_station_row_color_indicator_view);
+            
+            row.setTag(holder);
+            
+        } else {
+            holder = (ViewHolder) row.getTag();
+        }
+        
+        SensorStation sensorStation = sensorStations.get(position);
+        holder.nameView.setText(sensorStation.getName());
+        
+        
+        return row;
+    }
+
+    /**
+     * View holder class.
+     * @author Ulrich Raab
+     */
+    public static class ViewHolder {
+
+        /**
+         * TextView which should display the name of a sensor station.
+         */
+        private TextView nameView;
+       
+        /**
+         * View which should display the overall condition.
+         */
+        private View colorIndicatorView;
+    }
+}
