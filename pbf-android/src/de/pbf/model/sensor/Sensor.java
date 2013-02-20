@@ -26,6 +26,12 @@ public interface Sensor {
     Unit unit();
     
     /**
+     * Returns the sensor label.
+     * @return The sensor label as {@link String}
+     */
+    String label();
+    
+    /**
      * Builder interface for sensor builders.
      * @author Ulrich Raab
      */

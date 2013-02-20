@@ -74,7 +74,10 @@ public class SensorStation {
         List<Date> keys = new ArrayList<Date>(keySet);
         Collections.sort(keys);
         
-        return sensorsOverTime.get(keys.size() - 1);
+        Date key = keys.get(keys.size() - 1);
+        List<Sensor> sensors = sensorsOverTime().get(key);
+        
+        return sensors;
     }
     
         

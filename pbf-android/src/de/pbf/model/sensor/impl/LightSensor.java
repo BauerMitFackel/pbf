@@ -60,6 +60,7 @@ public class LightSensor extends GenericSensor {
         public Builder() {
 
             unit(Unit.BRIGHTNESS_IN_PERCENT);
+            label("Lichtsensor");
         }
 
         /**

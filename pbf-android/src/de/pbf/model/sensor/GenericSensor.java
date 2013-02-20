@@ -24,6 +24,11 @@ public abstract class GenericSensor implements Sensor {
     private Unit unit;
 
     /**
+     * The sensor label.
+     */
+    private String label;
+
+    /**
      * Constructor.
      * 
      * @param builder
@@ -34,6 +39,7 @@ public abstract class GenericSensor implements Sensor {
         this.id = builder.id;
         this.value = builder.value;
         this.unit = builder.unit;
+        this.label = builder.label;
     }
 
     @Override
@@ -54,7 +60,11 @@ public abstract class GenericSensor implements Sensor {
         return unit;
     }
 
-    // BUILDER
+    @Override
+    public String label() {
+
+        return label;
+    }
 
     @Override
     public int hashCode() {
@@ -62,7 +72,7 @@ public abstract class GenericSensor implements Sensor {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        
+
         return result;
     }
 
@@ -95,6 +105,8 @@ public abstract class GenericSensor implements Sensor {
         return true;
     }
 
+    // BUILDER
+
     /**
      * Builder class for {@link GenericSensor} objects.
      * 
@@ -116,6 +128,11 @@ public abstract class GenericSensor implements Sensor {
          * The measuring unit. Default value is <b>unknown</b>.
          */
         private Unit unit = Unit.UNKNOWN;
+
+        /**
+         * The sensor label. Default value is <b>undefined</b>.
+         */
+        private String label = "undefined";
 
         /**
          * Setter for {@link #id}.
@@ -148,6 +165,11 @@ public abstract class GenericSensor implements Sensor {
         public void unit(Unit unit) {
 
             this.unit = unit;
+        }
+
+        public void label(String label) {
+
+            this.label = label;
         }
 
         /**

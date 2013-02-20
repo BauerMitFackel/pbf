@@ -39,6 +39,7 @@ public class TemperatureSensor extends GenericSensor {
         public Builder() {
 
             unit(Unit.DEGREE_CELSIUS);
+            label("Temperatursensor");
         }
 
         /**

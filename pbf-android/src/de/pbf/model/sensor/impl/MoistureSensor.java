@@ -61,6 +61,7 @@ public class MoistureSensor extends GenericSensor implements Sensor {
         public Builder() {
 
             unit(Unit.MOISTURE_IN_PERCENT);
+            label("Feuchtigkeitssensor");
         }
 
         /**

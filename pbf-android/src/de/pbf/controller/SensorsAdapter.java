@@ -72,7 +72,7 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
         }
 
         Sensor sensor = sensors.get(position);
-        holder.nameView.setText(sensor.id());
+        holder.nameView.setText(sensor.label());
         
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumFractionDigits(1);
