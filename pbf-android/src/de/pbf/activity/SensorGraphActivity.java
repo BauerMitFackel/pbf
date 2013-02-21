@@ -1,18 +1,19 @@
 package de.pbf.activity;
 
-import com.jjoe64.graphview.GraphView;
-
-import de.pbf.App;
-import de.pbf.controller.GraphViewController;
-import de.pbf.controller.SensorStationsHolder;
-import de.pbf.model.SensorStation;
-import de.pbf.model.sensor.Sensor;
-import android.R;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+
+import com.jjoe64.graphview.GraphView;
+
+import de.pbf.R;
+import de.pbf.controller.GraphViewController;
+import de.pbf.controller.SensorStationsHolder;
+import de.pbf.model.SensorStation;
 
 public class SensorGraphActivity extends Activity {
     
@@ -24,9 +25,11 @@ public class SensorGraphActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
-        LinearLayout layout = new LinearLayout(App.context());
-        setContentView(layout);
         
+        setContentView(R.layout.graph_view_activity);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.graph_view_linear_layout);
+                
+                
         Bundle bundle = getIntent().getExtras();
         String url = bundle.getString("SENSOR_STATION_URL");
         this.sensorStation = SensorStationsHolder.INSTANCE.get(url);
@@ -39,6 +42,16 @@ public class SensorGraphActivity extends Activity {
 
         
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -58,8 +71,4 @@ public class SensorGraphActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
-    
-    
-
 }

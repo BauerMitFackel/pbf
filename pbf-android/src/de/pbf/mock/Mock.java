@@ -51,6 +51,78 @@ public final class Mock {
         calendar.set(2013, 02, 20, 16, 00);
         sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
         
+        calendar.set(2013, 02, 20, 16, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 16, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 16, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 17, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 17, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 17, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 17, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 18, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 18, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 18, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 18, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 19, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 19, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 19, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 19, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 20, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 20, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 20, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 20, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 21, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 21, 15);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 21, 30);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 21, 45);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
+        calendar.set(2013, 02, 20, 22, 00);
+        sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
+        
         List<SensorStation> stations = new ArrayList<SensorStation>();
         stations.add(sensorStation);
         
