@@ -83,10 +83,11 @@ public class GraphViewController {
     }
     
     private void setViewParams(GraphView graphView){
-        
-        graphView.setScrollable(true);
-        graphView.setScalable(true);
-        
+
+        //graphView.setViewPort(2, 40);  
+        graphView.setScrollable(false);
+        graphView.setScalable(false);
+        graphView.setFocusable(true);
     }
 
     /**
