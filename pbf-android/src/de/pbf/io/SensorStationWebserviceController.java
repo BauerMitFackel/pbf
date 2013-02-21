@@ -28,15 +28,13 @@ public class SensorStationWebserviceController {
     
     //private static final long TIMER_SCHEDULE_PERIOD_IN_MS = 900000; // 15 Minutes
     private static final long TIMER_SCHEDULE_PERIOD_IN_MS = 3000; // 30 Seconds
-    
-    
-    private List<SensorStation> sensorStations;
-    
+
     private Gson gson;
     private Type type;
     
     private Timer timer;
     
+    private List<SensorStation> sensorStations;
     
     /**
      * Constructor.
@@ -48,7 +46,6 @@ public class SensorStationWebserviceController {
         initializeGson();
     }
     
-    
     private void initializeGson() {
         
         GsonBuilder builder = new GsonBuilder();
@@ -58,12 +55,6 @@ public class SensorStationWebserviceController {
 
         TypeToken<List<Sensor>> typeToken = new TypeToken<List<Sensor>>() {};
         type = (Type) typeToken.getType();
-    }
-    
-    
-    public void updateSensorStations(List<SensorStation> sensorStations) {
-        
-        this.sensorStations = sensorStations;
     }
     
     /**

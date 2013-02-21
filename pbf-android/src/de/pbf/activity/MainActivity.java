@@ -10,13 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.List;
-
 import de.pbf.R;
 import de.pbf.controller.SensorStationsAdapter;
 import de.pbf.controller.SensorStationsHolder;
 import de.pbf.io.SensorStationWebserviceController;
-import de.pbf.mock.Mock;
 import de.pbf.model.SensorStation;
 
 /**
@@ -30,21 +27,18 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         
-        setupData();
-        executeBgThread();
-        
-        
+        //executeBgThread();
         
         setContentView(R.layout.main_activity);
 
         SensorStationsAdapter adapter = new SensorStationsAdapter(this, R.layout.sensor_station_row);
-
+        SensorStationsHolder.INSTANCE.register(adapter);
+        
         ListView sensorStationsView = (ListView) findViewById(R.id.main_activity_sensor_stations_list_view);
         sensorStationsView.setAdapter(adapter);
         
         sensorStationsView.setOnItemClickListener(makeOnItemClickListener());
     }
-    
     
     private AdapterView.OnItemClickListener makeOnItemClickListener() {
         
@@ -67,23 +61,11 @@ public class MainActivity extends Activity {
         return listener;
     }
     
-    
-    private void setupData() {
-        
-        List<SensorStation> sensorStations = Mock.makeSensorStations();
-        
-        for (SensorStation sensorStation : sensorStations) {
-            SensorStationsHolder.INSTANCE.add(sensorStation);
-        }
-    }
-    
-    
     private void executeBgThread() {
         
         SensorStationWebserviceController sswc = new SensorStationWebserviceController(SensorStationsHolder.INSTANCE.sensorStations());
         sswc.execute();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,7 +73,6 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main_activity_ab_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -106,6 +87,6 @@ public class MainActivity extends Activity {
                 
             default:
                 return super.onOptionsItemSelected(item);
-    }
+        }
     }
 }
