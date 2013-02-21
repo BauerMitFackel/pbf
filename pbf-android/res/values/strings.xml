@@ -10,4 +10,7 @@
 	<string name="unit_label_brightness_in_percent">%</string>
 	<string name="unit_label_unknown"></string>
 	
+	<string name="sensor_station_details_activity_url_edittext_hint">URL</string>
+	<string name="sensor_station_details_activity_name_edittext_hint">Name</string>
+	
 </resources>

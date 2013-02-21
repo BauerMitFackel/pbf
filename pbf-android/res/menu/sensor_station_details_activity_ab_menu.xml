@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/sensor_station_details_activity_ab_menu_accept"
+        android:showAsAction="always"
+        android:icon="@drawable/ab_accept_icon"
+        android:title="@string/action_settings"/>
+    
+    <item
+        android:id="@+id/sensor_station_details_activity_ab_menu_cancel"
+        android:showAsAction="always"
+        android:icon="@drawable/ab_cancel_icon"
+        android:title="@string/action_settings"/>
+
+</menu>

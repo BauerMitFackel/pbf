@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -71,7 +72,7 @@ public class MainActivity extends Activity {
                 intent.putExtras(bundle);
                 
                 startActivity(intent);
-                finish();
+                //finish();
             }
         };
         
@@ -118,7 +119,24 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_activity_ab_menu, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       
+        switch (item.getItemId()) {
+            case R.id.main_activity_ab_menu_add:
+                
+                Intent intent = new Intent(this, SensorStationDetailsActivity.class);
+                startActivity(intent);
+                
+                return true;
+                
+            default:
+                return super.onOptionsItemSelected(item);
+    }
     }
 }

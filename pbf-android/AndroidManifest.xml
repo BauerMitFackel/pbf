@@ -26,6 +26,7 @@
         
         <activity android:name="de.pbf.activity.SensorStationActivity" android:label="@string/app_name" />
         <activity android:name="de.pbf.activity.SensorGraphActivity" android:label="@string/app_name" />
+        <activity android:name=".activity.SensorStationDetailsActivity"></activity>
         
     </application>
 
