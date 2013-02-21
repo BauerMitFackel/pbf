@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -21,11 +22,17 @@ import de.pbf.model.sensor.Sensor;
 
 public class GraphViewController {
 
+
+        
+    enum type {
+        bar,
+        line
+    }
     /**
      * Build a GraphView
      * 
      * @param sensorStation
-     *            with contains the sensor
+     *            which contains the sensor
      * @param id
      *            of the specific sensor
      * @return a GraphView for one sensor with the id
@@ -43,17 +50,18 @@ public class GraphViewController {
             }
         }
 
-        GraphView gv = new LineGraphView(App.context(), sensorStation.getName() + "-" + sensor.label());
+        GraphView gv = initGraphView(type.line, sensorStation.getName() + "-" + sensor.label());
 
         Map<Date, Sensor> sensorMap = specificSensorMap(sensorsMap, id);
 
         GraphViewSeries gvs = graphViewSeries(sensorMap);
         gv.addSeries(gvs);
         
-        setViewParams(gv);
-        
         return gv;
     }
+    
+     
+    
 
     /**
      * Build a GraphView
@@ -64,7 +72,9 @@ public class GraphViewController {
     public GraphView graphView(SensorStation sensorStation) {
 
         Map<Date, List<Sensor>> sensorsMap = new HashMap<Date, List<Sensor>>();
-        GraphView gv = new LineGraphView(App.context(), sensorStation.getName() + "-Graph");
+        
+        GraphView gv = initGraphView(type.line, sensorStation.getName() + "-Graph");
+                
         sensorsMap = sensorStation.sensorsOverTime();
 
         Map<String, Map<Date, Sensor>> sensorMaps = sensorMaps(sensorsMap);
@@ -77,17 +87,42 @@ public class GraphViewController {
             gv.addSeries(gvs);
         }
         
-        setViewParams(gv);
-        
         return gv;
     }
+        
     
-    private void setViewParams(GraphView graphView){
+    private GraphView initGraphView(type graphType, String graphTitle){
+        
+        GraphView graphView;
+        
+        /*  --> Beispiel zur umformatierung der X-Achsen Bezeichnung
+            GraphView graphView = new LineGraphView(this, "example") {  
+               @Override  
+               protected String formatLabel(double value, boolean isValueX) {  
+                  if (isValueX) {  
+                     // convert unix time to human time  
+                     return dateTimeFormatter.format(new Date((long) value*1000));  
+                  } else return super.formatLabel(value, isValueX); // let the y-value be normal-formatted  
+               }  
+            };
+         */
+        
+        if (graphType.equals(type.bar)) {
+            graphView = new BarGraphView(App.context(), graphTitle);
+            //TODO@Ulrich: Hier Labelformatter für BarGraphView einbauen
+            
+        } else {
+            graphView = new LineGraphView(App.context(), graphTitle);
+          //TODO@Ulrich: Hier Labelformatter für LineGraphView einbauen
+            
+        }
 
-        //graphView.setViewPort(2, 40);  
+        graphView.setViewPort(2, 40);  
         graphView.setScrollable(false);
         graphView.setScalable(false);
         graphView.setFocusable(true);
+        
+        return graphView;
     }
 
     /**
