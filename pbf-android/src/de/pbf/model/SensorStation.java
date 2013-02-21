@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.pbf.model.sensor.Sensor;
+import de.pbf.model.sensor.impl.LightSensor;
 
 /**
  * SensorStation object.
@@ -17,6 +18,9 @@ import de.pbf.model.sensor.Sensor;
  */
 public class SensorStation {
 
+    
+    private final int MIN_LIGHT_INTENSITY = 20;
+    
     /**
      * The url of the sensor station.
      */
@@ -65,6 +69,41 @@ public class SensorStation {
     public void setName(String name) {
 
         this.name = name;
+    }
+    
+    /**
+     * @return the time in minutes of the light availability since the last darkperiode  
+     */
+    public long lightDuration(){
+        
+        Map<Date, List<Sensor>> sensorsOverTime = sensorsOverTime();
+        
+        Set<Date> keySet = sensorsOverTime.keySet();
+        List<Date> keys = new ArrayList<Date>(keySet);
+        Collections.sort(keys);
+        
+        Date currentDate = keys.get(keys.size()-1);
+        long lightDuration = 0;
+        Boolean isDone = false;
+        
+        for(int i = keys.size()-2; i >= 0; i--){
+            
+            for(Sensor sensor:sensorsOverTime.get(keys.get(i))){
+                
+                if(sensor instanceof LightSensor){
+                    
+                    if(sensor.value() >= MIN_LIGHT_INTENSITY){
+                        lightDuration = (keys.get(i).getTime() - currentDate.getTime()) / (60*1000) % 60;
+                    }
+                    break;
+                }
+                break;
+            }
+            
+            if(isDone)break;               
+        }
+        
+        return lightDuration;
     }
 
     
