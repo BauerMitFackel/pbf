@@ -58,15 +58,10 @@ public class SensorGraphActivity extends Activity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, SensorStationActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 
-                Bundle bundle = new Bundle();
-                bundle.putString("SENSOR_STATION_URL", sensorStation.getUrl());
-                intent.putExtras(bundle);
-                
-                startActivity(intent);
+                onBackPressed();
                 return true;
+                
             default:
                 return super.onOptionsItemSelected(item);
         }

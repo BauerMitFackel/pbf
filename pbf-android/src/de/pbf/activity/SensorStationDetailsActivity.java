@@ -2,9 +2,11 @@ package de.pbf.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import de.pbf.R;
 
@@ -15,6 +17,11 @@ public class SensorStationDetailsActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sensor_station_details_activity);
+        
+        /*
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(yourEditText, InputMethodManager.SHOW_IMPLICIT);
+        */
     }
     
     @Override

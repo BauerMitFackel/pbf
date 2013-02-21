@@ -5,7 +5,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import de.pbf.R;
-import de.pbf.controller.SensorHolder;
 import de.pbf.controller.SensorStationsHolder;
 import de.pbf.controller.SensorsAdapter;
 import de.pbf.model.SensorStation;
@@ -46,6 +44,7 @@ public class SensorStationActivity extends Activity {
 
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(sensorStation.getName());
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -55,6 +54,7 @@ public class SensorStationActivity extends Activity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                
                 onBackPressed();
                 return true;
                 
@@ -80,7 +80,7 @@ public class SensorStationActivity extends Activity {
                 intent.putExtras(bundle);
                 
                 startActivity(intent);
-                finish();
+                //finish();
             }
         };
         
