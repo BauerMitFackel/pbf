@@ -8,6 +8,7 @@
 	<string name="unit_label_degree_celsius">°C</string>
 	<string name="unit_label_moisture_in_percent">%</string>
 	<string name="unit_label_brightness_in_percent">%</string>
+	<string name="unit_label_duration_in_minutes">min</string>
 	<string name="unit_label_unknown"></string>
 	
 	<string name="sensor_station_details_activity_url_edittext_hint">URL</string>

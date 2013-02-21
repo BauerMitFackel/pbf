@@ -26,6 +26,11 @@ public enum Unit {
     BRIGHTNESS_IN_PERCENT(R.string.unit_label_brightness_in_percent),
     
     /**
+     * Light duration.
+     */
+    LIGHT_DURATION_IN_MINUTS(R.string.unit_label_duration_in_minutes),
+    
+    /**
      * Unknown unit.
      */
     UNKNOWN(R.string.unit_label_unknown);
