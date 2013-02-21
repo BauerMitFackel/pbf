@@ -31,9 +31,10 @@ public final class Mock {
     public static List<SensorStation> makeSensorStations() {
 
         SensorStation sensorStation = new SensorStation();
-        sensorStation.setUrl("http://192.168.0.1");
+        sensorStation.setUrl("http://192.168.178.59");
         sensorStation.setName("Arduino");
         
+        /*
         GregorianCalendar calendar = new GregorianCalendar();
         
         calendar.set(2013, 02, 20, 15, 00);
@@ -122,7 +123,7 @@ public final class Mock {
         
         calendar.set(2013, 02, 20, 22, 00);
         sensorStation.sensorsOverTime().put(calendar.getTime(), makeSensors());
-        
+        */
         List<SensorStation> stations = new ArrayList<SensorStation>();
         stations.add(sensorStation);
         
@@ -135,7 +136,7 @@ public final class Mock {
         // Sensor 1
         
         MoistureSensor.Builder msBuilder = new MoistureSensor.Builder();
-        msBuilder.id("S1");
+        msBuilder.id("S2");
         msBuilder.rawValue((float) (Math.random() * 1024));
         
         MoistureSensor sensor1 = msBuilder.build();
@@ -143,7 +144,7 @@ public final class Mock {
         // Sensor 2
         
         msBuilder = new MoistureSensor.Builder();
-        msBuilder.id("S2");
+        msBuilder.id("S5");
         msBuilder.rawValue((float) (Math.random() * 1024));
 
         MoistureSensor sensor2 = msBuilder.build();

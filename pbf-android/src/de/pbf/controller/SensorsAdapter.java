@@ -13,13 +13,16 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import de.pbf.R;
+import de.pbf.model.SensorStation;
 import de.pbf.model.sensor.Sensor;
+import de.pbf.model.sensor.impl.LightingDurationSensor;
+import de.pbf.util.observer.Observer;
 
 /**
  * {@link ListView} adapter for sensors.
  * @author Ulrich Raab
  */
-public class SensorsAdapter extends ArrayAdapter<Sensor> {
+public class SensorsAdapter extends ArrayAdapter<Sensor> implements Observer<SensorStation>{
 
     /**
      * The current context.
@@ -31,10 +34,6 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
      */
     private int resourceId;
 
-    /**
-     * List of sensor stations.
-     */
-    private List<Sensor> sensors;
 
     /**
      * Constructor.
@@ -48,7 +47,6 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
 
         this.context = context;
         this.resourceId = resourceId;
-        this.sensors = sensors;
     }
 
     @Override
@@ -70,8 +68,9 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
         } else {
             holder = (ViewHolder) row.getTag();
         }
-
-        Sensor sensor = sensors.get(position);
+        
+        Sensor sensor =  this.getItem(position);      
+        
         holder.nameView.setText(sensor.label());
         
         NumberFormat numberFormat = NumberFormat.getInstance();
@@ -80,9 +79,25 @@ public class SensorsAdapter extends ArrayAdapter<Sensor> {
         
         String valueText = numberFormat.format(sensor.value()) + " " + sensor.unit().label();
         holder.valueView.setText(valueText);
-
+        
         return row;
     }
+    
+    @Override
+    public void observableChanged(SensorStation sensorStation) {
+        
+        this.clear();
+        
+        LightingDurationSensorFactory factory = new LightingDurationSensorFactory();
+        LightingDurationSensor sensor = factory.makeLightingDurationSensor(sensorStation.sensorsOverTime());
+        
+        this.addAll(sensorStation.sensors());
+        this.add(sensor);
+        
+        
+        notifyDataSetInvalidated();
+    }
+    
 
     /**
      * View holder class.

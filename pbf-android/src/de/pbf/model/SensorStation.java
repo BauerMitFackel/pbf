@@ -4,23 +4,20 @@ package de.pbf.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import de.pbf.model.sensor.Sensor;
-import de.pbf.model.sensor.impl.LightSensor;
-import de.pbf.util.LightDuration;
+import de.pbf.util.observer.Observable;
+import de.pbf.util.observer.Observer;
 
 /**
  * SensorStation object.
  * @author Ulrich Raab
  */
-public class SensorStation {
-
-    
-    private final int MIN_LIGHT_INTENSITY = 20;
+public class SensorStation implements Observable<SensorStation> {
     
     /**
      * The url of the sensor station.
@@ -31,9 +28,10 @@ public class SensorStation {
      * The name of the sensor station.
      */
     private String name;
-
     
-    private Map<Date, List<Sensor>> sensorsOverTime = new HashMap<Date, List<Sensor>>();
+    
+    private List<Observer<SensorStation>> observers = new ArrayList<Observer<SensorStation>>();
+    private Map<Date, List<Sensor>> sensorsOverTime = new ConcurrentHashMap<Date, List<Sensor>>();
     
 
     /**
@@ -72,15 +70,7 @@ public class SensorStation {
         this.name = name;
     }
     
-    /**
-     * @return the time in seconds of the light availability since the last dark period  
-     */
-    public long lightDuration(){
-              
-        return LightDuration.getInstance().lightDuration(sensorsOverTime(), MIN_LIGHT_INTENSITY);
-    }
 
-    
     public List<Sensor> sensors() {
         
         Set<Date> keySet = sensorsOverTime.keySet();
@@ -97,5 +87,30 @@ public class SensorStation {
     public Map<Date, List<Sensor>> sensorsOverTime() {
         
         return sensorsOverTime;
+    }
+
+    
+    @Override
+    public void register(Observer<SensorStation> observer) {
+        
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(Observer<SensorStation> observer) {
+        
+        boolean success = observers.remove(observer);
+        if (success) {
+            unregister(observer);
+            
+        }
+    }
+
+    @Override
+    public void informOnChanges() {
+        
+        for (Observer<SensorStation> observer : observers) {
+            observer.observableChanged(this);
+        }
     }
 }

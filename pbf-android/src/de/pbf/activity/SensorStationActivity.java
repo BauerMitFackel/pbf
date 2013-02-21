@@ -1,9 +1,6 @@
 
 package de.pbf.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,14 +11,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.pbf.R;
+import de.pbf.controller.LightingDurationSensorFactory;
 import de.pbf.controller.SensorStationsHolder;
 import de.pbf.controller.SensorsAdapter;
 import de.pbf.model.SensorStation;
 import de.pbf.model.sensor.Sensor;
-import de.pbf.model.sensor.impl.LightDurationSensor;
 import de.pbf.model.sensor.impl.LightSensor;
-import de.pbf.model.sensor.impl.MoistureSensor;
+import de.pbf.model.sensor.impl.LightingDurationSensor;
 
 public class SensorStationActivity extends Activity {
 
@@ -35,32 +35,29 @@ public class SensorStationActivity extends Activity {
 
         Bundle bundle = getIntent().getExtras();
         String url = bundle.getString("SENSOR_STATION_URL");
+        
         this.sensorStation = SensorStationsHolder.INSTANCE.get(url);
         
-        //Build LightDuration "Sensor"
-        LightDurationSensor.Builder ldBuilder = new LightDurationSensor.Builder();
-        ldBuilder.id("L1");
-        ldBuilder.rawValue(0);
-        
-        LightDurationSensor lightDuration = ldBuilder.build();
-        lightDuration.setlightDuration(sensorStation.lightDuration());
-        
-        // add LightDuration to sensors
         List<Sensor> sensors = new ArrayList<Sensor>();
         
         for(Sensor sensor: sensorStation.sensors()){
             sensors.add(sensor);
         }
-        sensors.add(lightDuration);
+        
+        LightingDurationSensorFactory factory = new LightingDurationSensorFactory();
+        LightingDurationSensor sensor = factory.makeLightingDurationSensor(sensorStation.sensorsOverTime());
+        sensors.add(sensor);
+
         
         SensorsAdapter adapter = new SensorsAdapter(this, R.layout.sensor_row, sensors);
+        sensorStation.register(adapter);
 
         ListView sensorView = (ListView) findViewById(R.id.sensor_station_activity_sensors_list_view);
         sensorView.setAdapter(adapter);
         
         sensorView.setOnItemClickListener(makeOnItemClickListener());
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -94,15 +91,11 @@ public class SensorStationActivity extends Activity {
                                 
                 List<Sensor> sensors = sensorStation.sensors();
                 Sensor sensor = null;
-                LightSensor ls = null;
                 
                 if(position < sensors.size()) {
                     
                     sensor = sensors.get(position);
-                    
 
-                    
-   
                 } else {
                     
                     // if LightDuration list item was clicked, show LightSensor chart instead

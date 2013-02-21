@@ -8,25 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 import de.pbf.R;
 import de.pbf.controller.SensorStationsAdapter;
 import de.pbf.controller.SensorStationsHolder;
-import de.pbf.io.AsyncWebserviceRequest;
-import de.pbf.io.SensorDeserializer;
+import de.pbf.io.SensorStationWebserviceController;
 import de.pbf.mock.Mock;
 import de.pbf.model.SensorStation;
-import de.pbf.model.sensor.Sensor;
 
 /**
  * MainActivity class.
@@ -40,6 +31,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setupData();
+        executeBgThread();
+        
         
         
         setContentView(R.layout.main_activity);
@@ -50,9 +43,6 @@ public class MainActivity extends Activity {
         sensorStationsView.setAdapter(adapter);
         
         sensorStationsView.setOnItemClickListener(makeOnItemClickListener());
-
-        // doExport();
-        //doImport();
     }
     
     
@@ -70,9 +60,7 @@ public class MainActivity extends Activity {
                 bundle.putString("SENSOR_STATION_URL", sensorStation.getUrl());
                 
                 intent.putExtras(bundle);
-                
                 startActivity(intent);
-                //finish();
             }
         };
         
@@ -89,36 +77,17 @@ public class MainActivity extends Activity {
         }
     }
     
-
-    private void doImport() {
-
-        AsyncWebserviceRequest.Listener listener = new AsyncWebserviceRequest.Listener() {
-
-            @Override
-            public void executionFinished(String response) {
-
-                GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(Sensor.class, new SensorDeserializer());
-
-                Gson gson = builder.create();
-
-                TypeToken<List<Sensor>> typeToken = new TypeToken<List<Sensor>>() {};
-                Type type = (Type) typeToken.getType();
-
-                List<Sensor> sensors = gson.fromJson(response, type);
-            }
-        };
-
-        AsyncWebserviceRequest asyncWebserviceRequest = new AsyncWebserviceRequest();
-        asyncWebserviceRequest.setListener(listener);
-
-        asyncWebserviceRequest.execute("http://192.168.178.59");
+    
+    private void executeBgThread() {
+        
+        SensorStationWebserviceController sswc = new SensorStationWebserviceController(SensorStationsHolder.INSTANCE.sensorStations());
+        sswc.execute();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity_ab_menu, menu);
         return true;
     }
