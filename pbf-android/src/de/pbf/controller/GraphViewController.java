@@ -14,6 +14,7 @@ import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
 
 import de.pbf.App;
@@ -117,10 +118,13 @@ public class GraphViewController {
             
         }
 
-        graphView.setViewPort(2, 40);  
+//        graphView.setViewPort(2, 40);
         graphView.setScrollable(false);
         graphView.setScalable(false);
         graphView.setFocusable(true);
+        
+//        GraphViewStyle gvs = new GraphViewStyle();
+        
         
         return graphView;
     }
