@@ -28,7 +28,7 @@ public enum Unit {
     /**
      * Light duration.
      */
-    LIGHT_DURATION_IN_MINUTS(R.string.unit_label_duration_in_minutes),
+    LIGHTING_DURATION_IN_MINUTES(R.string.unit_label_duration_in_minutes),
     
     /**
      * Unknown unit.

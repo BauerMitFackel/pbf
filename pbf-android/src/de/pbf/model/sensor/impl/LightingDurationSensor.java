@@ -32,7 +32,7 @@ public class LightingDurationSensor extends GenericSensor {
          */
         public Builder() {
 
-            unit(Unit.LIGHT_DURATION_IN_MINUTS);
+            unit(Unit.LIGHTING_DURATION_IN_MINUTES);
             label("Lichtdauer");
         }
 

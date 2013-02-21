@@ -77,6 +77,10 @@ public class SensorStation implements Observable<SensorStation> {
         List<Date> keys = new ArrayList<Date>(keySet);
         Collections.sort(keys);
         
+        if (keys.isEmpty()) {
+            return new ArrayList<Sensor>();
+        }
+        
         Date key = keys.get(keys.size() - 1);
         List<Sensor> sensors = sensorsOverTime().get(key);
         
