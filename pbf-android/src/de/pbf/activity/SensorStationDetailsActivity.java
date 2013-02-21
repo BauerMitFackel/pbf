@@ -71,7 +71,6 @@ public class SensorStationDetailsActivity extends Activity {
             sensorStation.setUrl(urlEditText.getText().toString());
             
             SensorStationsHolder.INSTANCE.add(sensorStation);
-            SensorStationsHolder.INSTANCE.informOnChanges();
             
             onBackPressed();
         }

@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.pbf.model.SensorStation;
-import de.pbf.util.observer.Observable;
-import de.pbf.util.observer.Observer;
 
-public enum SensorStationsHolder implements Observable<SensorStationsHolder> {
+public enum SensorStationsHolder {
     
     INSTANCE;
     
     private List<SensorStation> sensorStations = new ArrayList<SensorStation>();
-    private List<Observer<SensorStationsHolder>> observers = new ArrayList<Observer<SensorStationsHolder>>();
     
     public void add(SensorStation sensorStation) {
         
@@ -44,29 +41,5 @@ public enum SensorStationsHolder implements Observable<SensorStationsHolder> {
     public void clear() {
         
         sensorStations = new ArrayList<SensorStation>();
-    }
-
-    @Override
-    public void register(Observer<SensorStationsHolder> observer) {
-
-        observers.add(observer);
-    }
-
-    @Override
-    public void unregister(Observer<SensorStationsHolder> observer) {
-        
-        boolean success = observers.remove(observer);
-        if (success) {
-            unregister(observer);
-            
-        }
-    }
-
-    @Override
-    public void informOnChanges() {
-        
-        for (Observer<SensorStationsHolder> observer : observers) {
-            observer.observableChanged(this);
-        }
     }
 }

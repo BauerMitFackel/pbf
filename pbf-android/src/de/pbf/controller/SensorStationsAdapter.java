@@ -12,13 +12,12 @@ import android.widget.TextView;
 
 import de.pbf.R;
 import de.pbf.model.SensorStation;
-import de.pbf.util.observer.Observer;
 
 /**
  * {@link ListView} adapter for sensor stations.
  * @author Ulrich Raab
  */
-public class SensorStationsAdapter extends ArrayAdapter<SensorStation> implements Observer<SensorStationsHolder>{
+public class SensorStationsAdapter extends ArrayAdapter<SensorStation> {
 
     /**
      * The current context.
@@ -85,14 +84,5 @@ public class SensorStationsAdapter extends ArrayAdapter<SensorStation> implement
          */
         @SuppressWarnings("unused")
         private View colorIndicatorView;
-    }
-
-    @Override
-    public void observableChanged(SensorStationsHolder observable) {
-        
-        clear();
-        addAll(observable.sensorStations());
-        
-        notifyDataSetInvalidated();
     }
 }

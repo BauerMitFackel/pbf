@@ -27,13 +27,19 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         
-        //executeBgThread();
+        if (SensorStationsHolder.INSTANCE.sensorStations().isEmpty()) {
+            SensorStation sensorStation = new SensorStation();
+            sensorStation.setName("Arduino Testsystem");
+            sensorStation.setUrl("http://192.168.178.59");
+            SensorStationsHolder.INSTANCE.add(sensorStation);
+        }
+        
+        executeBgThread();
         
         setContentView(R.layout.main_activity);
 
         SensorStationsAdapter adapter = new SensorStationsAdapter(this, R.layout.sensor_station_row);
-        SensorStationsHolder.INSTANCE.register(adapter);
-        
+
         ListView sensorStationsView = (ListView) findViewById(R.id.main_activity_sensor_stations_list_view);
         sensorStationsView.setAdapter(adapter);
         
